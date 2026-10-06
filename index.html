@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
+<title>Operations Hub · ศูนย์รวมระบบงาน</title>
+<meta name="description" content="ศูนย์รวมระบบงาน: Pallet Hub, SDS Management และ e-Work Permit">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23E2231A'/%3E%3Cstop offset='.5' stop-color='%232563eb'/%3E%3Cstop offset='1' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 18h12v12H18zM34 18h12v12H34zM18 34h12v12H18zM34 34h12v12H34z' fill='%23fff' opacity='.92'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://watanathep8-dotcom.github.io">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05070f;
+    --ink: #f4f6fb;
+    --muted: #9aa3b8;
+    --line: rgba(255, 255, 255, .09);
+    --red: #E2231A; --red-2: #ff6b5f;
+    --blue: #2563eb; --blue-2: #60a5fa;
+    --green: #10b981; --green-2: #6ee7b7;
+    --gold: #fbbf24;
+    --r: 28px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: 'Prompt', 'Kanit', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- background: aurora + grid + particles ---------- */
+  .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .aurora { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(90px); opacity: .42; mix-blend-mode: screen; animation: drift 22s ease-in-out infinite alternate; }
+  .aurora.a1 { background: radial-gradient(circle, var(--red) 0%, transparent 65%); top: -22vmax; left: -18vmax; }
+  .aurora.a2 { background: radial-gradient(circle, var(--blue) 0%, transparent 65%); top: -10vmax; right: -25vmax; animation-duration: 26s; animation-delay: -6s; }
+  .aurora.a3 { background: radial-gradient(circle, var(--green) 0%, transparent 65%); bottom: -30vmax; left: 15vmax; animation-duration: 30s; animation-delay: -12s; }
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(6vmax, 4vmax) scale(1.12) rotate(25deg); }
+    100% { transform: translate(-4vmax, 7vmax) scale(.95) rotate(-15deg); }
+  }
+  .grid {
+    position: absolute; inset: -50%;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    transform: perspective(700px) rotateX(62deg) translateY(-8%);
+    mask-image: radial-gradient(ellipse at 50% 70%, #000 10%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 70%, #000 10%, transparent 60%);
+    animation: gridmove 14s linear infinite;
+    opacity: .55;
+  }
+  @keyframes gridmove { to { background-position: 0 64px, 64px 0; } }
+  #particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .spot { position: fixed; z-index: 1; pointer-events: none; width: 520px; height: 520px; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(255, 255, 255, .07), transparent 60%); left: 50%; top: 40%; transition: opacity .4s; }
+
+  /* ---------- layout ---------- */
+  .wrap { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 28px 20px 56px; min-height: 100vh; display: flex; flex-direction: column; }
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 12px; font-family: 'Kanit', sans-serif; font-weight: 700; letter-spacing: .3px; }
+  .logo-mark { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: conic-gradient(from 0deg, var(--red), var(--blue), var(--green), var(--red)); animation: spin 8s linear infinite; box-shadow: 0 0 30px rgba(96, 165, 250, .35); }
+  .logo-mark span { width: 36px; height: 36px; border-radius: 11px; background: #0b0f1d; display: grid; place-items: center; animation: spin 8s linear infinite reverse; }
+  .logo-mark svg { width: 20px; height: 20px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .logo small { display: block; font-family: 'Prompt', sans-serif; font-weight: 400; font-size: 12px; color: var(--muted); }
+  .clock { text-align: right; font-family: 'Kanit', sans-serif; padding: 8px 16px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255, 255, 255, .03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .clock b { font-size: 22px; font-weight: 600; letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+  .clock small { display: block; color: var(--muted); font-size: 12px; font-family: 'Prompt', sans-serif; }
+
+  .hero { text-align: center; margin: 7vh auto 5vh; max-width: 860px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04); font-size: 13px; color: var(--muted); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(16, 185, 129, .7); animation: ping 1.8s infinite; }
+  @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+  h1 { font-family: 'Kanit', sans-serif; font-weight: 800; font-size: clamp(34px, 6.4vw, 72px); line-height: 1.08; margin: 18px 0 14px; letter-spacing: -.5px; }
+  h1 .shine {
+    background: linear-gradient(100deg, var(--red-2) 0%, #fff 22%, var(--blue-2) 42%, #fff 60%, var(--green-2) 80%, var(--red-2) 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position: 220% center; } }
+  .hero p { color: var(--muted); font-size: clamp(15px, 2vw, 18px); }
+  .typed { color: var(--ink); font-weight: 500; border-right: 2px solid var(--gold); padding-right: 4px; animation: caret 1s step-end infinite; }
+  @keyframes caret { 50% { border-color: transparent; } }
+
+  /* ---------- cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; perspective: 1400px; }
+  .card {
+    --c: var(--red); --c2: var(--red-2); --mx: 50%; --my: 50%; --rx: 0deg; --ry: 0deg;
+    position: relative; display: flex; flex-direction: column; border-radius: var(--r); padding: 2px; min-height: 420px;
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
+    transform-style: preserve-3d;
+    transition: transform .25s ease, box-shadow .4s ease;
+    opacity: 0; animation: rise .9s cubic-bezier(.2, .9, .2, 1.15) forwards;
+    outline: none;
+  }
+  .card:nth-child(1) { animation-delay: .25s; }
+  .card:nth-child(2) { animation-delay: .4s; --c: var(--blue); --c2: var(--blue-2); }
+  .card:nth-child(3) { animation-delay: .55s; --c: var(--green); --c2: var(--green-2); }
+  @keyframes rise { from { opacity: 0; transform: translateY(60px) scale(.94) rotateX(18deg); } to { opacity: 1; transform: none; } }
+  /* rotating conic border */
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
+    background: conic-gradient(from var(--ang, 0deg), transparent 0deg, var(--c) 60deg, var(--c2) 110deg, transparent 170deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: ang 5s linear infinite; opacity: .9;
+  }
+  @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @keyframes ang { to { --ang: 360deg; } }
+  .card:hover, .card:focus-visible { box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--c) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent); }
+  .card:focus-visible::before { animation-duration: 1.6s; }
+  .inner {
+    position: relative; flex: 1; border-radius: calc(var(--r) - 2px); overflow: hidden; padding: 30px 28px 26px;
+    background: linear-gradient(160deg, rgba(20, 24, 40, .92), rgba(8, 10, 20, .94));
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  /* glare following the cursor */
+  .inner::after { content: ""; position: absolute; inset: 0; background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--c2) 22%, transparent), transparent 45%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .card:hover .inner::after { opacity: 1; }
+  .glow-blob { position: absolute; width: 260px; height: 260px; border-radius: 50%; right: -90px; top: -90px; background: radial-gradient(circle, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%); filter: blur(10px); animation: breathe 5s ease-in-out infinite; }
+  @keyframes breathe { 50% { transform: scale(1.18); opacity: .75; } }
+
+  .icon-box { position: relative; width: 132px; height: 132px; margin: 4px 0 6px; transform: translateZ(60px); }
+  .icon-box .ring { position: absolute; inset: 0; border-radius: 34px; background: color-mix(in srgb, var(--c) 16%, transparent); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); box-shadow: inset 0 0 30px color-mix(in srgb, var(--c) 25%, transparent), 0 10px 40px -10px var(--c); animation: float 4.5s ease-in-out infinite; }
+  .icon-box .orbit { position: absolute; inset: -14px; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--c2) 45%, transparent); animation: spin 14s linear infinite; }
+  .icon-box .orbit i { position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 12px var(--c2); }
+  .icon-box svg { position: absolute; inset: 0; width: 100%; height: 100%; padding: 22px; overflow: visible; animation: float 4.5s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+
+  .card h2 { font-family: 'Kanit', sans-serif; font-size: 27px; font-weight: 700; line-height: 1.15; transform: translateZ(40px); }
+  .card h2 small { display: block; font-size: 14px; font-weight: 500; color: var(--c2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .card p.desc { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chips span { font-size: 12px; padding: 4px 11px; border-radius: 999px; background: rgba(255, 255, 255, .05); border: 1px solid var(--line); color: #d5dbea; }
+  .go { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-radius: 16px; font-family: 'Kanit', sans-serif; font-weight: 600; background: linear-gradient(120deg, var(--c), color-mix(in srgb, var(--c2) 80%, #000)); box-shadow: 0 12px 30px -12px var(--c); overflow: hidden; position: relative; transform: translateZ(30px); }
+  .go::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%); transform: translateX(-120%); }
+  .card:hover .go::after { animation: sweep 1s ease; }
+  @keyframes sweep { to { transform: translateX(120%); } }
+  .go .arrow { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .18); transition: transform .3s; }
+  .card:hover .go .arrow { transform: translateX(4px) rotate(-45deg); }
+  .url { font-size: 11.5px; color: #6c7590; font-family: 'Prompt', sans-serif; word-break: break-all; }
+
+  /* ---------- icon animations ---------- */
+  /* Pallet: boards stack up, forklift-ish bounce */
+  .pal .board { transform-box: fill-box; transform-origin: center; animation: stack 3.2s ease-in-out infinite; }
+  .pal .board.b2 { animation-delay: .15s; } .pal .board.b3 { animation-delay: .3s; }
+  @keyframes stack { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-5px); } 55% { transform: translateY(1px); } }
+  .pal .box { transform-box: fill-box; transform-origin: bottom center; animation: drop 3.2s cubic-bezier(.3, 1.5, .5, 1) infinite; }
+  @keyframes drop { 0%, 15% { transform: translateY(-34px) scale(.9); opacity: 0; } 35%, 85% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+  /* SDS: flask bubbles + GHS diamond pulse */
+  .sds .bubble { animation: bubble 2.6s ease-in infinite; transform-box: fill-box; }
+  .sds .bubble.d2 { animation-delay: .8s; } .sds .bubble.d3 { animation-delay: 1.6s; }
+  @keyframes bubble { 0% { transform: translateY(0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-38px) scale(1.15); opacity: 0; } }
+  .sds .liquid { animation: slosh 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes slosh { 50% { transform: skewX(-6deg) translateX(1px); } }
+  .sds .ghs { transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform: rotate(45deg) scale(1.12); } 0%, 100% { transform: rotate(45deg) scale(1); } }
+  /* Permit: hard hat nod + check draw */
+  .wp .hat { transform-box: fill-box; transform-origin: bottom center; animation: nod 3s ease-in-out infinite; }
+  @keyframes nod { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-7deg) translateY(-2px); } 50% { transform: rotate(5deg); } }
+  .wp .check { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw 3s ease-in-out infinite; }
+  @keyframes draw { 30%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -40; } }
+
+  /* ---------- footer ---------- */
+  footer { margin-top: 48px; text-align: center; color: #6c7590; font-size: 13px; }
+  footer b { color: #aab3c9; font-weight: 500; }
+
+  /* ---------- click warp transition ---------- */
+  .warp { position: fixed; inset: 0; z-index: 50; pointer-events: none; clip-path: circle(0 at var(--wx, 50%) var(--wy, 50%)); background: radial-gradient(circle at var(--wx) var(--wy), var(--wc, #fff), #05070f 70%); transition: clip-path .7s cubic-bezier(.7, 0, .3, 1); display: grid; place-items: center; }
+  .warp.on { clip-path: circle(150% at var(--wx, 50%) var(--wy, 50%)); }
+  .warp span { font-family: 'Kanit', sans-serif; font-size: 20px; letter-spacing: 1px; opacity: 0; transition: opacity .3s .45s; }
+  .warp.on span { opacity: 1; }
+  .ripple { position: absolute; border-radius: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(255, 255, 255, .35); animation: rip .7s ease-out forwards; pointer-events: none; }
+  @keyframes rip { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+
+  @media (max-width: 980px) {
+    .cards { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; width: 100%; }
+    .card { min-height: 0; }
+    .hero { margin-top: 5vh; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 18px 16px 40px; }
+    .clock { display: none; }
+    .inner { padding: 24px 20px 20px; }
+    .icon-box { width: 108px; height: 108px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    .card { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
+  <div class="grid"></div>
+  <canvas id="particles"></canvas>
+</div>
+<div class="spot" id="spot" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="logo">
+      <div class="logo-mark"><span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span></div>
+      <div>Operations Hub<small>ศูนย์รวมระบบงาน</small></div>
+    </div>
+    <div class="clock" aria-live="off"><b id="clock">--:--:--</b><small id="date">&nbsp;</small></div>
+  </header>
+
+  <section class="hero">
+    <span class="badge"><i></i>3 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
+    <h1><span class="shine">ศูนย์รวมระบบงาน</span><br>ในที่เดียว</h1>
+    <p>เลือกระบบที่ต้องการ — <span class="typed" id="typed"></span></p>
+  </section>
+
+  <main class="cards">
+    <a class="card" href="https://watanathep8-dotcom.github.io/pallet-management/" data-name="Pallet Hub" aria-label="เปิดระบบ Pallet Hub ระบบบริหารพาเลท">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="pal" viewBox="0 0 64 64" fill="none">
+            <rect class="box" x="20" y="9" width="24" height="17" rx="3" fill="#ff8a80" stroke="#fff" stroke-width="2"/>
+            <path class="box" d="M20 15h24M32 9v6" stroke="#fff" stroke-width="2"/>
+            <rect class="board" x="8" y="29" width="48" height="6" rx="2" fill="#fff"/>
+            <rect class="board b2" x="8" y="39" width="48" height="6" rx="2" fill="#ffd2cf"/>
+            <g class="board b3" fill="#fff"><rect x="10" y="48" width="8" height="8" rx="1.5"/><rect x="28" y="48" width="8" height="8" rx="1.5"/><rect x="46" y="48" width="8" height="8" rx="1.5"/></g>
+          </svg>
+        </div>
+        <h2><small>Pallet Hub</small>ระบบบริหารพาเลท</h2>
+        <p class="desc">รับเข้า เบิกจ่าย รับคืน แจ้งชำรุด งานซ่อม และสต็อกคงเหลือ RM · PK · FG แบบเรียลไทม์</p>
+        <div class="chips"><span>สต็อกพาเลท</span><span>งานซ่อม</span><span>ประวัติ & Log</span></div>
+        <div class="go"><span>เข้าสู่ Pallet Hub</span><span class="arrow">➜</span></div>
+        <div class="url">watanathep8-dotcom.github.io/pallet-management</div>
+      </div>
+    </a>
+
+    <a class="card" href="https://watanathep8-dotcom.github.io/sds-management-dashboard/" data-name="SDS Management" aria-label="เปิดระบบ SDS Management จัดการเอกสารความปลอดภัยสารเคมี">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="sds" viewBox="0 0 64 64" fill="none">
+            <rect class="ghs" x="38" y="6" width="16" height="16" rx="2" fill="#fff" stroke="#ef4444" stroke-width="2.5"/>
+            <path d="M46 10v6M46 18.5v.5" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M18 8h16M22 8v14L10 46a6 6 0 0 0 5.3 9h21.4A6 6 0 0 0 42 46L30 22V8" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/>
+            <path class="liquid" d="M14.5 40h23L41 47a4 4 0 0 1-3.6 6H14.6A4 4 0 0 1 11 47z" fill="#93c5fd"/>
+            <circle class="bubble" cx="22" cy="46" r="2.2" fill="#fff"/>
+            <circle class="bubble d2" cx="29" cy="48" r="1.7" fill="#fff"/>
+            <circle class="bubble d3" cx="25" cy="44" r="1.4" fill="#fff"/>
+          </svg>
+        </div>
+        <h2><small>SDS Management</small>เอกสารความปลอดภัยสารเคมี</h2>
+        <p class="desc">ค้นหา SDS ภาษาไทย/อังกฤษ สัญลักษณ์ GHS มาตรการปฐมพยาบาล พร้อม QR Code และพิมพ์ทะเบียนสารเคมี</p>
+        <div class="chips"><span>ทะเบียนสารเคมี</span><span>GHS Pictogram</span><span>QR Code</span></div>
+        <div class="go"><span>เข้าสู่ SDS Management</span><span class="arrow">➜</span></div>
+        <div class="url">watanathep8-dotcom.github.io/sds-management-dashboard</div>
+      </div>
+    </a>
+
+    <a class="card" href="https://watanathep8-dotcom.github.io/work-permit/" data-name="e-Work Permit" aria-label="เปิดระบบ e-Work Permit ใบขออนุญาตปฏิบัติงาน">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="wp" viewBox="0 0 64 64" fill="none">
+            <rect x="12" y="20" width="34" height="38" rx="4" fill="rgba(255,255,255,.12)" stroke="#fff" stroke-width="2.4"/>
+            <rect x="21" y="16" width="16" height="8" rx="2" fill="#6ee7b7" stroke="#fff" stroke-width="2"/>
+            <path d="M18 34h14M18 41h10" stroke="#a7f3d0" stroke-width="2.4" stroke-linecap="round"/>
+            <path class="check" d="M19 49l5 5 10-11" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <g class="hat">
+              <path d="M36 24a12 12 0 0 1 24 0v2H36z" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+              <rect x="33" y="25" width="30" height="5" rx="2.5" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
+              <path d="M48 12v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <h2><small>e-Work Permit</small>ใบขออนุญาตปฏิบัติงาน</h2>
+        <p class="desc">ยื่นขอใบอนุญาตออนไลน์ (FM-MR-58) ลงนาม แนบไฟล์ ติดตามสถานะด้วย QR และ จป. อนุมัติได้ทันที</p>
+        <div class="chips"><span>ขอใบอนุญาต</span><span>ติดตามสถานะ</span><span>สำหรับ จป.</span></div>
+        <div class="go"><span>เข้าสู่ e-Work Permit</span><span class="arrow">➜</span></div>
+        <div class="url">watanathep8-dotcom.github.io/work-permit</div>
+      </div>
+    </a>
+  </main>
+
+  <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b></footer>
+</div>
+
+<div class="warp" id="warp" aria-hidden="true"><span id="warpText"></span></div>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* clock (Thai) */
+  const clock = document.getElementById('clock'), date = document.getElementById('date');
+  const tick = () => {
+    const d = new Date();
+    clock.textContent = d.toLocaleTimeString('th-TH', { hour12: false });
+    date.textContent = d.toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  };
+  tick(); setInterval(tick, 1000);
+
+  /* typewriter */
+  const words = ['บริหารพาเลท RM · PK · FG', 'เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน'];
+  const typed = document.getElementById('typed');
+  if (reduce) typed.textContent = words.join(' · ');
+  else {
+    let w = 0, i = 0, del = false;
+    const step = () => {
+      const word = words[w];
+      typed.textContent = word.slice(0, i);
+      if (!del && i < word.length) i++;
+      else if (!del) { del = true; return setTimeout(step, 1600); }
+      else if (i > 0) i--;
+      else { del = false; w = (w + 1) % words.length; }
+      setTimeout(step, del ? 35 : 75);
+    };
+    step();
+  }
+
+  /* particles: drifting dots linked by faint lines, tinted with the three brand colours */
+  const cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+  const COLORS = ['226,35,26', '96,165,250', '52,211,153', '255,255,255'];
+  let W, H, dots = [], mouse = { x: -999, y: -999 };
+  const resize = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(90, W * H / 16000));
+    dots = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+      r: Math.random() * 1.8 + .6, c: COLORS[Math.floor(Math.random() * COLORS.length)]
+    }));
+  };
+  resize(); addEventListener('resize', resize);
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    for (const d of dots) {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > W) d.vx *= -1;
+      if (d.y < 0 || d.y > H) d.vy *= -1;
+      const dx = d.x - mouse.x, dy = d.y - mouse.y, dist = Math.hypot(dx, dy);
+      if (dist < 120) { d.x += dx / dist * .8; d.y += dy / dist * .8; }
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${d.c},.75)`; ctx.fill();
+    }
+    for (let a = 0; a < dots.length; a++) for (let b = a + 1; b < dots.length; b++) {
+      const p = dots[a], q = dots[b], dd = Math.hypot(p.x - q.x, p.y - q.y);
+      if (dd < 120) { ctx.strokeStyle = `rgba(${p.c},${(1 - dd / 120) * .18})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  };
+  draw();
+
+  /* cursor spotlight */
+  const spot = document.getElementById('spot');
+  addEventListener('pointermove', e => {
+    mouse.x = e.clientX; mouse.y = e.clientY;
+    spot.style.left = e.clientX + 'px'; spot.style.top = e.clientY + 'px';
+  }, { passive: true });
+
+  /* 3D tilt + glare per card */
+  const fine = matchMedia('(pointer: fine)').matches;
+  document.querySelectorAll('.card').forEach(card => {
+    if (fine && !reduce) {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', x * 100 + '%'); card.style.setProperty('--my', y * 100 + '%');
+        card.style.setProperty('--ry', (x - .5) * 14 + 'deg'); card.style.setProperty('--rx', (.5 - y) * 12 + 'deg');
+      });
+      card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+    }
+    /* ripple + colour warp, then open the site */
+    card.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // new tab / window: let the browser handle it
+      e.preventDefault();
+      const href = card.href, inner = card.querySelector('.inner'), r = inner.getBoundingClientRect();
+      const rp = document.createElement('span'); rp.className = 'ripple';
+      const size = Math.max(r.width, r.height) * 2.2;
+      Object.assign(rp.style, { width: size + 'px', height: size + 'px', left: (e.clientX - r.left || r.width / 2) + 'px', top: (e.clientY - r.top || r.height / 2) + 'px' });
+      inner.appendChild(rp);
+      if (reduce) { location.href = href; return; }
+      const warp = document.getElementById('warp');
+      warp.style.setProperty('--wx', (e.clientX || innerWidth / 2) + 'px');
+      warp.style.setProperty('--wy', (e.clientY || innerHeight / 2) + 'px');
+      warp.style.setProperty('--wc', getComputedStyle(card).getPropertyValue('--c').trim() || '#fff');
+      document.getElementById('warpText').textContent = 'กำลังเปิด ' + card.dataset.name + ' ...';
+      warp.classList.add('on');
+      setTimeout(() => { location.href = href; }, 650);
+    });
+  });
+  /* coming back with the browser Back button: undo the warp */
+  addEventListener('pageshow', () => document.getElementById('warp').classList.remove('on'));
+})();
+</script>
+</body>
+</html>

@@ -170,6 +170,10 @@
   footer { margin-top: 48px; text-align: center; color: #6c7590; font-size: 13px; }
   footer b { color: #aab3c9; font-weight: 500; }
 
+  /* "Programming by" credit — slow 7-colour cycle (same as the SDS site) */
+  .logo small.programming-credit { font-size: 11px; font-weight: 700; letter-spacing: .02em; animation: rainbowText 21s ease-in-out infinite; }
+  @keyframes rainbowText { 0%, 100% { color: #ef4444; } 14.28% { color: #f97316; } 28.56% { color: #eab308; } 42.84% { color: #22c55e; } 57.12% { color: #06b6d4; } 71.4% { color: #3b82f6; } 85.68% { color: #8b5cf6; } }
+
   /* ---------- click warp transition ---------- */
   .warp { position: fixed; inset: 0; z-index: 50; pointer-events: none; clip-path: circle(0 at var(--wx, 50%) var(--wy, 50%)); background: radial-gradient(circle at var(--wx) var(--wy), var(--wc, #fff), #05070f 70%); transition: clip-path .7s cubic-bezier(.7, 0, .3, 1); display: grid; place-items: center; }
   .warp.on { clip-path: circle(150% at var(--wx, 50%) var(--wy, 50%)); }
@@ -207,7 +211,7 @@
   <header class="top">
     <div class="logo">
       <div class="logo-mark"><span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span></div>
-      <div>Operations Hub<small>ศูนย์รวมระบบงาน</small></div>
+      <div>Operations Hub<small>ศูนย์รวมระบบงาน</small><small class="programming-credit">Programming by Duongruthai_Milk</small></div>
     </div>
     <div class="clock" aria-live="off"><b id="clock">--:--:--</b><small id="date">&nbsp;</small></div>
   </header>

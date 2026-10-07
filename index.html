@@ -36,28 +36,31 @@
 
   /* ---------- background: aurora + grid + particles ---------- */
   .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-  .aurora { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(90px); opacity: .42; mix-blend-mode: screen; animation: drift 22s ease-in-out infinite alternate; }
-  .aurora.a1 { background: radial-gradient(circle, var(--red) 0%, transparent 65%); top: -22vmax; left: -18vmax; }
-  .aurora.a2 { background: radial-gradient(circle, var(--blue) 0%, transparent 65%); top: -10vmax; right: -25vmax; animation-duration: 26s; animation-delay: -6s; }
-  .aurora.a3 { background: radial-gradient(circle, var(--green) 0%, transparent 65%); bottom: -30vmax; left: 15vmax; animation-duration: 30s; animation-delay: -12s; }
+  .aurora { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; opacity: .42; will-change: transform; backface-visibility: hidden; animation: drift 22s ease-in-out infinite alternate; }
+  .aurora.a1 { background: radial-gradient(circle, var(--red) 0%, rgba(226, 35, 26, .55) 22%, rgba(226, 35, 26, .2) 42%, rgba(226, 35, 26, .06) 56%, transparent 70%); top: -22vmax; left: -18vmax; }
+  .aurora.a2 { background: radial-gradient(circle, var(--blue) 0%, rgba(37, 99, 235, .55) 22%, rgba(37, 99, 235, .2) 42%, rgba(37, 99, 235, .06) 56%, transparent 70%); top: -10vmax; right: -25vmax; animation-duration: 26s; animation-delay: -6s; }
+  .aurora.a3 { background: radial-gradient(circle, var(--green) 0%, rgba(16, 185, 129, .55) 22%, rgba(16, 185, 129, .2) 42%, rgba(16, 185, 129, .06) 56%, transparent 70%); bottom: -30vmax; left: 15vmax; animation-duration: 30s; animation-delay: -12s; }
   @keyframes drift {
     0% { transform: translate(0, 0) scale(1) rotate(0deg); }
     50% { transform: translate(6vmax, 4vmax) scale(1.12) rotate(25deg); }
     100% { transform: translate(-4vmax, 7vmax) scale(.95) rotate(-15deg); }
   }
   .grid {
-    position: absolute; inset: -50%;
-    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
+    position: absolute; inset: -50%; overflow: hidden;
     transform: perspective(700px) rotateX(62deg) translateY(-8%);
     mask-image: radial-gradient(ellipse at 50% 70%, #000 10%, transparent 60%);
     -webkit-mask-image: radial-gradient(ellipse at 50% 70%, #000 10%, transparent 60%);
-    animation: gridmove 14s linear infinite;
     opacity: .55;
   }
-  @keyframes gridmove { to { background-position: 0 64px, 64px 0; } }
+  .grid::before {
+    content: ""; position: absolute; inset: -64px 0 0 -64px;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    will-change: transform; animation: gridmove 14s linear infinite;
+  }
+  @keyframes gridmove { to { transform: translate3d(64px, 64px, 0); } }
   #particles { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .spot { position: fixed; z-index: 1; pointer-events: none; width: 520px; height: 520px; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(255, 255, 255, .07), transparent 60%); left: 50%; top: 40%; transition: opacity .4s; }
+  .spot { position: fixed; z-index: 1; pointer-events: none; width: 520px; height: 520px; border-radius: 50%; left: -260px; top: -260px; transform: translate3d(50vw, 40vh, 0); will-change: transform; background: radial-gradient(circle, rgba(255, 255, 255, .07), transparent 60%); transition: opacity .4s; }
 
   /* ---------- layout ---------- */
   .wrap { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 28px 20px 56px; min-height: 100vh; display: flex; flex-direction: column; }
@@ -104,16 +107,18 @@
   .card:nth-child(3) { animation-delay: .55s; --c: var(--green); --c2: var(--green-2); }
   @keyframes rise { from { opacity: 0; transform: translateY(60px) scale(.94) rotateX(18deg); } to { opacity: 1; transform: none; } }
   /* rotating conic border */
-  .card::before {
-    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
-    background: conic-gradient(from var(--ang, 0deg), transparent 0deg, var(--c) 60deg, var(--c2) 110deg, transparent 170deg, transparent 360deg);
+  .card .edge {
+    position: absolute; inset: 0; border-radius: inherit; padding: 2px; overflow: hidden; pointer-events: none;
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
-    animation: ang 5s linear infinite; opacity: .9;
+    opacity: .9;
   }
-  @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-  @keyframes ang { to { --ang: 360deg; } }
+  .card .edge i {
+    position: absolute; left: 50%; top: 50%; width: 300%; aspect-ratio: 1; margin: -150% 0 0 -150%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--c) 60deg, var(--c2) 110deg, transparent 170deg, transparent 360deg);
+    will-change: transform; animation: spin 5s linear infinite;
+  }
   .card:hover, .card:focus-visible { box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--c) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent); }
-  .card:focus-visible::before { animation-duration: 1.6s; }
+  .card:focus-visible .edge i { animation-duration: 1.6s; }
   .inner {
     position: relative; flex: 1; border-radius: calc(var(--r) - 2px); overflow: hidden; padding: 30px 28px 26px;
     background: linear-gradient(160deg, rgba(20, 24, 40, .92), rgba(8, 10, 20, .94));
@@ -122,7 +127,7 @@
   /* glare following the cursor */
   .inner::after { content: ""; position: absolute; inset: 0; background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--c2) 22%, transparent), transparent 45%); opacity: 0; transition: opacity .3s; pointer-events: none; }
   .card:hover .inner::after { opacity: 1; }
-  .glow-blob { position: absolute; width: 260px; height: 260px; border-radius: 50%; right: -90px; top: -90px; background: radial-gradient(circle, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%); filter: blur(10px); animation: breathe 5s ease-in-out infinite; }
+  .glow-blob { position: absolute; width: 260px; height: 260px; border-radius: 50%; right: -90px; top: -90px; background: radial-gradient(circle, color-mix(in srgb, var(--c) 55%, transparent), transparent 72%); will-change: transform, opacity; animation: breathe 5s ease-in-out infinite; }
   @keyframes breathe { 50% { transform: scale(1.18); opacity: .75; } }
 
   .icon-box { position: relative; width: 132px; height: 132px; margin: 4px 0 6px; transform: translateZ(60px); }
@@ -334,6 +339,7 @@
 
   /* particles: drifting dots linked by faint lines, tinted with the three brand colours */
   const cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+  const STEPS = 12, paths = {};
   const COLORS = ['226,35,26', '96,165,250', '52,211,153', '255,255,255'];
   let W, H, dots = [], mouse = { x: -999, y: -999 };
   const resize = () => {
@@ -347,7 +353,8 @@
       r: Math.random() * 1.8 + .6, c: COLORS[Math.floor(Math.random() * COLORS.length)]
     }));
   };
-  resize(); addEventListener('resize', resize);
+  let rz = 0;
+  resize(); addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(resize, 150); });
   const draw = () => {
     ctx.clearRect(0, 0, W, H);
     for (const d of dots) {
@@ -359,9 +366,24 @@
       ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${d.c},.75)`; ctx.fill();
     }
-    for (let a = 0; a < dots.length; a++) for (let b = a + 1; b < dots.length; b++) {
-      const p = dots[a], q = dots[b], dd = Math.hypot(p.x - q.x, p.y - q.y);
-      if (dd < 120) { ctx.strokeStyle = `rgba(${p.c},${(1 - dd / 120) * .18})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+    // links: same colours/fade as before, grouped into colour x alpha buckets -> a handful of stroke() calls per frame
+    for (const k in paths) paths[k] = null;
+    for (let a = 0; a < dots.length; a++) {
+      const p = dots[a];
+      for (let b = a + 1; b < dots.length; b++) {
+        const q = dots[b], dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+        if (d2 >= 14400) continue;
+        const key = p.c + '|' + Math.min(STEPS - 1, Math.floor((1 - Math.sqrt(d2) / 120) * STEPS));
+        const path = paths[key] || (paths[key] = new Path2D());
+        path.moveTo(p.x, p.y); path.lineTo(q.x, q.y);
+      }
+    }
+    ctx.lineWidth = 1;
+    for (const k in paths) {
+      if (!paths[k]) continue;
+      const [c, lvl] = k.split('|');
+      ctx.strokeStyle = `rgba(${c},${((+lvl + .5) / STEPS) * .18})`;
+      ctx.stroke(paths[k]);
     }
     if (!reduce) requestAnimationFrame(draw);
   };
@@ -369,21 +391,30 @@
 
   /* cursor spotlight */
   const spot = document.getElementById('spot');
+  let spotQueued = false;
   addEventListener('pointermove', e => {
     mouse.x = e.clientX; mouse.y = e.clientY;
-    spot.style.left = e.clientX + 'px'; spot.style.top = e.clientY + 'px';
+    if (spotQueued) return;
+    spotQueued = true;
+    requestAnimationFrame(() => { spotQueued = false; spot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0)`; });
   }, { passive: true });
 
   /* 3D tilt + glare per card */
   const fine = matchMedia('(pointer: fine)').matches;
   document.querySelectorAll('.card').forEach(card => {
+    const edge = document.createElement('span'); edge.className = 'edge'; edge.setAttribute('aria-hidden', 'true');
+    edge.appendChild(document.createElement('i')); card.prepend(edge); // rotating border layer
     if (fine && !reduce) {
-      card.addEventListener('pointermove', e => {
-        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      let pe = null, queued = false; // one style update per frame, not per pointer event
+      const apply = () => {
+        queued = false;
+        if (!pe) return;
+        const r = card.getBoundingClientRect(), x = (pe.clientX - r.left) / r.width, y = (pe.clientY - r.top) / r.height;
         card.style.setProperty('--mx', x * 100 + '%'); card.style.setProperty('--my', y * 100 + '%');
         card.style.setProperty('--ry', (x - .5) * 14 + 'deg'); card.style.setProperty('--rx', (.5 - y) * 12 + 'deg');
-      });
-      card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+      };
+      card.addEventListener('pointermove', e => { pe = e; if (!queued) { queued = true; requestAnimationFrame(apply); } }, { passive: true });
+      card.addEventListener('pointerleave', () => { pe = null; card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
     }
     /* ripple + colour warp, then open the site */
     card.addEventListener('click', e => {

@@ -145,6 +145,16 @@
   .go { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-radius: 16px; font-family: 'Kanit', sans-serif; font-weight: 600; background: linear-gradient(120deg, var(--c), color-mix(in srgb, var(--c2) 80%, #000)); box-shadow: 0 12px 30px -12px var(--c); overflow: hidden; position: relative; transform: translateZ(30px); }
   .go::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .45) 50%, transparent 70%); transform: translateX(-120%); }
   .card:hover .go::after { animation: sweep 1s ease; }
+  /* a card with two destinations (e-Work Permit: one site per company) */
+  .go-pair { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+  .go-pair .go { margin-top: 0; transition: transform .25s, box-shadow .25s; }
+  .go-pair .go span small { display: block; font-family: 'Prompt', sans-serif; font-weight: 400; font-size: 11.5px; opacity: .85; }
+  .go-pair .go:hover, .go-pair .go:focus-visible { transform: translateZ(30px) translateY(-2px); box-shadow: 0 16px 34px -12px var(--c); outline: none; }
+  .card:hover .go-pair .go::after { animation: none; }
+  .go-pair .go:hover::after, .go-pair .go:focus-visible::after { animation: sweep 1s ease; }
+  .go-pair .go .arrow { transition: transform .3s; }
+  .card:hover .go-pair .go .arrow { transform: none; }
+  .go-pair .go:hover .arrow { transform: translateX(4px) rotate(-45deg); }
   @keyframes sweep { to { transform: translateX(120%); } }
   .go .arrow { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .18); transition: transform .3s; }
   .card:hover .go .arrow { transform: translateX(4px) rotate(-45deg); }
@@ -274,7 +284,7 @@
       </div>
     </a>
 
-    <a class="card" href="https://watanathep8-dotcom.github.io/work-permit/" data-name="e-Work Permit" aria-label="เปิดระบบ e-Work Permit ใบขออนุญาตปฏิบัติงาน">
+    <div class="card" data-name="e-Work Permit">
       <div class="inner">
         <div class="glow-blob"></div>
         <div class="icon-box">
@@ -295,10 +305,12 @@
         <h2><small>e-Work Permit</small>ใบขออนุญาตปฏิบัติงาน</h2>
         <p class="desc">ยื่นขอใบอนุญาตออนไลน์ (FM-MR-58) ลงนาม แนบไฟล์ ติดตามสถานะด้วย QR และ จป. อนุมัติได้ทันที</p>
         <div class="chips"><span>ขอใบอนุญาต</span><span>ติดตามสถานะ</span><span>สำหรับ จป.</span></div>
-        <div class="go"><span>เข้าสู่ e-Work Permit</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/work-permit</div>
+        <div class="go-pair">
+          <a class="go" href="https://watanathep8-dotcom.github.io/work-permit-thepwatana/" data-name="e-Work Permit · บริษัท เทพวัฒนา จำกัด" aria-label="เปิด e-Work Permit ของ บริษัท เทพวัฒนา จำกัด"><span><small>เข้าสู่ e-Work Permit</small>บริษัท เทพวัฒนา จำกัด</span><span class="arrow">➜</span></a>
+          <a class="go" href="https://watanathep8-dotcom.github.io/work-permit/" data-name="e-Work Permit · บริษัท แน็ป นิวตริซายส์ จำกัด" aria-label="เปิด e-Work Permit ของ บริษัท แน็ป นิวตริซายส์ จำกัด"><span><small>เข้าสู่ e-Work Permit</small>บริษัท แน็ป นิวตริซายส์ จำกัด</span><span class="arrow">➜</span></a>
+        </div>
       </div>
-    </a>
+    </div>
   </main>
 
   <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b></footer>
@@ -419,8 +431,10 @@
     /* ripple + colour warp, then open the site */
     card.addEventListener('click', e => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // new tab / window: let the browser handle it
+      const link = card.matches('a') ? card : e.target.closest('a.go');
+      if (!link) return; // a two-destination card: only its buttons open a site
       e.preventDefault();
-      const href = card.href, inner = card.querySelector('.inner'), r = inner.getBoundingClientRect();
+      const href = link.href, inner = card.querySelector('.inner'), r = inner.getBoundingClientRect();
       const rp = document.createElement('span'); rp.className = 'ripple';
       const size = Math.max(r.width, r.height) * 2.2;
       Object.assign(rp.style, { width: size + 'px', height: size + 'px', left: (e.clientX - r.left || r.width / 2) + 'px', top: (e.clientY - r.top || r.height / 2) + 'px' });
@@ -430,7 +444,7 @@
       warp.style.setProperty('--wx', (e.clientX || innerWidth / 2) + 'px');
       warp.style.setProperty('--wy', (e.clientY || innerHeight / 2) + 'px');
       warp.style.setProperty('--wc', getComputedStyle(card).getPropertyValue('--c').trim() || '#fff');
-      document.getElementById('warpText').textContent = 'กำลังเปิด ' + card.dataset.name + ' ...';
+      document.getElementById('warpText').textContent = 'กำลังเปิด ' + (link.dataset.name || card.dataset.name) + ' ...';
       warp.classList.add('on');
       setTimeout(() => { location.href = href; }, 650);
     });

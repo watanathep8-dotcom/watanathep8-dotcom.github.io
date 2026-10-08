@@ -109,7 +109,25 @@
   .card.c-blue { --c: var(--blue); --c2: var(--blue-2); }
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
   /* one group per company */
-  .group + .group { margin-top: 44px; }
+  /* the two companies side by side, half the screen each; 2 compact cards per row inside a group */
+  .groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px; align-items: start; }
+  .groups .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; perspective: 1100px; }
+  .groups .card { min-height: 0; --r: 22px; }
+  .groups .inner { padding: 18px 18px 16px; gap: 9px; }
+  .groups .icon-box { width: 76px; height: 76px; margin: 2px 0 2px; }
+  .groups .icon-box .ring { border-radius: 22px; }
+  .groups .icon-box .orbit { inset: -9px; }
+  .groups .icon-box svg { padding: 13px; }
+  .groups .glow-blob { width: 170px; height: 170px; right: -60px; top: -60px; }
+  .groups .card h2 { font-size: 19px; }
+  .groups .card h2 small { font-size: 11.5px; letter-spacing: 1.2px; margin-bottom: 2px; }
+  .groups .card p.desc { font-size: 12.5px; line-height: 1.5; }
+  .groups .chips { gap: 5px; }
+  .groups .chips span { font-size: 11px; padding: 3px 9px; }
+  .groups .go { padding: 10px 12px; border-radius: 13px; font-size: 14px; margin-top: 6px; }
+  .groups .go .arrow { width: 28px; height: 28px; }
+  .groups .url { font-size: 10.5px; }
+  .groups .group:last-child .card { animation-delay: .7s; }
   .group-h { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-family: 'Kanit', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: .2px; }
   .group-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
   .group-h .g-ic { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; font-size: 17px; background: rgba(255, 255, 255, .05); border: 1px solid var(--line); }
@@ -197,6 +215,12 @@
   .ripple { position: absolute; border-radius: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(255, 255, 255, .35); animation: rip .7s ease-out forwards; pointer-events: none; }
   @keyframes rip { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
 
+  @media (max-width: 1100px) {
+    .groups { grid-template-columns: 1fr; gap: 30px; }
+  }
+  @media (max-width: 560px) {
+    .groups .cards { grid-template-columns: 1fr; }
+  }
   @media (max-width: 980px) {
     .cards { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; width: 100%; }
     .card { min-height: 0; }
@@ -237,6 +261,7 @@
     <p>เลือกระบบที่ต้องการ — <span class="typed" id="typed"></span></p>
   </section>
 
+  <div class="groups">
   <section class="group" aria-labelledby="g-nap">
     <h3 class="group-h" id="g-nap"><span class="g-ic">🏭</span>บริษัท แน็ป นิวตริซายส์ จำกัด<small>3 ระบบ</small></h3>
   <div class="cards">
@@ -344,6 +369,7 @@
     </a>
   </div>
   </section>
+  </div>
 
   <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b></footer>
 </div>

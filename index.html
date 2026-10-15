@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="th">
+<!-- GENERATED from tools/hub-template.html by tools/build-company-pages.py — edit the template, then re-run the script -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
@@ -112,6 +113,16 @@
   /* Balance Waste: recycle mark turns slowly, the core pulses */
   .bw .recycle { transform-box: view-box; transform-origin: 32px 36px; animation: spin 9s linear infinite; }
   .card:hover .bw .recycle { animation-duration: 2.4s; }
+  /* company chooser: two big cards */
+  .co-pick { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 900px; margin: 0 auto; width: 100%; }
+  .co-card .inner { padding: 34px 32px 28px; }
+  .co-ic { width: 104px; height: 104px; border-radius: 30px; display: grid; place-items: center; font-size: 52px; position: relative; transform: translateZ(60px);
+    background: color-mix(in srgb, var(--c) 16%, transparent); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+    box-shadow: inset 0 0 30px color-mix(in srgb, var(--c) 25%, transparent), 0 10px 40px -10px var(--c); }
+  .co-ic::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--c2) 50%, transparent); animation: spin 14s linear infinite; }
+  .co-ic span { display: inline-block; animation: float 4.5s ease-in-out infinite; }
+  .co-card h2 { font-size: 26px; }
+  @media (max-width: 760px) { .co-pick { grid-template-columns: 1fr; max-width: 520px; } }
   /* one group per company */
   /* the two companies side by side, half the screen each; 2 compact cards per row inside a group */
   .groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px; align-items: start; }
@@ -262,145 +273,35 @@
   </header>
 
   <section class="hero">
-    <span class="badge"><i></i>2 บริษัท · 5 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
-    <h1><span class="shine">ศูนย์รวมระบบงาน</span><br>ในที่เดียว</h1>
-    <p>เลือกระบบที่ต้องการ — <span class="typed" id="typed"></span></p>
+    <span class="badge"><i></i>2 บริษัท · ออนไลน์ 24 ชม.</span>
+    <h1><span class="shine">ศูนย์รวมระบบงาน</span><br>เลือกบริษัท</h1>
+    <p>เลือกบริษัทของคุณ — <span class="typed" id="typed"></span></p>
   </section>
 
-  <div class="groups">
-  <section class="group" aria-labelledby="g-nap">
-    <h3 class="group-h" id="g-nap"><span class="g-ic">🏭</span>บริษัท แน็ป นิวตริซายส์ จำกัด<small>3 ระบบ</small><a class="g-link" href="nap/">หน้าบริษัท ➜</a></h3>
-  <div class="cards">
-    <a class="card" href="https://watanathep8-dotcom.github.io/pallet-management/" data-name="Pallet Hub" aria-label="เปิดระบบ Pallet Hub ระบบบริหารพาเลท">
+  <div class="cards co-pick">
+    <a class="card co-card" href="nap/" data-name="บริษัท แน็ป นิวตริซายส์ จำกัด" aria-label="เข้าสู่ระบบงานของ บริษัท แน็ป นิวตริซายส์ จำกัด">
       <div class="inner">
         <div class="glow-blob"></div>
-        <div class="icon-box">
-          <div class="orbit"><i></i></div>
-          <div class="ring"></div>
-          <svg class="pal" viewBox="0 0 64 64" fill="none">
-            <rect class="box" x="20" y="9" width="24" height="17" rx="3" fill="#ff8a80" stroke="#fff" stroke-width="2"/>
-            <path class="box" d="M20 15h24M32 9v6" stroke="#fff" stroke-width="2"/>
-            <rect class="board" x="8" y="29" width="48" height="6" rx="2" fill="#fff"/>
-            <rect class="board b2" x="8" y="39" width="48" height="6" rx="2" fill="#ffd2cf"/>
-            <g class="board b3" fill="#fff"><rect x="10" y="48" width="8" height="8" rx="1.5"/><rect x="28" y="48" width="8" height="8" rx="1.5"/><rect x="46" y="48" width="8" height="8" rx="1.5"/></g>
-          </svg>
-        </div>
-        <h2><small>Pallet Hub</small>ระบบบริหารพาเลท</h2>
-        <p class="desc">รับเข้า เบิกจ่าย รับคืน แจ้งชำรุด งานซ่อม และสต็อกคงเหลือ RM · PK · FG แบบเรียลไทม์</p>
-        <div class="chips"><span>สต็อกพาเลท</span><span>งานซ่อม</span><span>ประวัติ & Log</span></div>
-        <div class="go"><span>เข้าสู่ Pallet Hub</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/pallet-management</div>
+        <div class="co-ic"><span>🏭</span></div>
+        <h2><small>Nap Nutriscience</small>บริษัท แน็ป นิวตริซายส์ จำกัด</h2>
+        <p class="desc">3 ระบบงานของบริษัท</p>
+        <div class="chips"><span>Pallet Hub</span><span>e-Work Permit</span><span>Balance Waste</span></div>
+        <div class="go"><span>เข้าสู่ระบบงานของบริษัท</span><span class="arrow">&#10140;</span></div>
       </div>
     </a>
-
-
-    <a class="card c-green" href="https://watanathep8-dotcom.github.io/work-permit/" data-name="e-Work Permit · แน็ป นิวตริซายส์" aria-label="เปิด e-Work Permit ของ บริษัท แน็ป นิวตริซายส์ จำกัด">
+    <a class="card co-card c-blue" href="thepwatana/" data-name="บริษัท เทพวัฒนา จำกัด" aria-label="เข้าสู่ระบบงานของ บริษัท เทพวัฒนา จำกัด">
       <div class="inner">
         <div class="glow-blob"></div>
-        <div class="icon-box">
-          <div class="orbit"><i></i></div>
-          <div class="ring"></div>
-          <svg class="wp" viewBox="0 0 64 64" fill="none">
-            <rect x="12" y="20" width="34" height="38" rx="4" fill="rgba(255,255,255,.12)" stroke="#fff" stroke-width="2.4"/>
-            <rect x="21" y="16" width="16" height="8" rx="2" fill="#6ee7b7" stroke="#fff" stroke-width="2"/>
-            <path d="M18 34h14M18 41h10" stroke="#a7f3d0" stroke-width="2.4" stroke-linecap="round"/>
-            <path class="check" d="M19 49l5 5 10-11" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <g class="hat">
-              <path d="M36 24a12 12 0 0 1 24 0v2H36z" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
-              <rect x="33" y="25" width="30" height="5" rx="2.5" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
-              <path d="M48 12v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-            </g>
-          </svg>
-        </div>
-        <h2><small>e-Work Permit</small>ใบขออนุญาตปฏิบัติงาน</h2>
-        <p class="desc">ยื่นขอใบอนุญาตออนไลน์ (FM-MR-58) ลงนาม แนบไฟล์ ติดตามสถานะด้วย QR และ จป. อนุมัติได้ทันที</p>
-        <div class="chips"><span>ขอใบอนุญาต</span><span>ติดตามสถานะ</span><span>สำหรับ จป.</span></div>
-        <div class="go"><span>เข้าสู่ e-Work Permit</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/work-permit</div>
-      </div>
-    </a>
-    <a class="card c-teal" href="https://watanathep8-dotcom.github.io/balance-waste-nap/" data-name="Balance Waste" aria-label="เปิดระบบ Balance Waste บริหารจัดการของเสีย">
-      <div class="inner">
-        <div class="glow-blob"></div>
-        <div class="icon-box">
-          <div class="orbit"><i></i></div>
-          <div class="ring"></div>
-          <svg class="bw" viewBox="0 0 64 64" fill="none">
-            <g class="recycle">
-              <path d="M32 10l7 12h-14z" fill="#5eead4" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M52 44l-7 12-7-12z" fill="#2dd4bf" stroke="#fff" stroke-width="2" stroke-linejoin="round" transform="rotate(0)"/>
-              <path d="M12 44l14 0-7 12z" fill="#99f6e4" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M36 22c6 3 10 10 10 17M18 40c-1-7 3-15 9-18M24 54c7 2 15 0 20-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-            </g>
-            <circle cx="32" cy="36" r="5" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
-          </svg>
-        </div>
-        <h2><small>Balance Waste</small>บริหารจัดการของเสีย</h2>
-        <p class="desc">บันทึกของเสียที่จัดเก็บในโรงงาน (กก.) ถัง 200 ลิตร · IBC · Bigbag ส่งกำจัด และติดตามโควตาตามหนังสืออนุญาต สก.2</p>
-        <div class="chips"><span>จัดเก็บ / ส่งกำจัด</span><span>คงเหลือ & โควตา</span><span>สก.2</span></div>
-        <div class="go"><span>เข้าสู่ Balance Waste</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/balance-waste-nap</div>
+        <div class="co-ic"><span>🏢</span></div>
+        <h2><small>Thepwatana</small>บริษัท เทพวัฒนา จำกัด</h2>
+        <p class="desc">2 ระบบงานของบริษัท</p>
+        <div class="chips"><span>SDS Management</span><span>e-Work Permit</span></div>
+        <div class="go"><span>เข้าสู่ระบบงานของบริษัท</span><span class="arrow">&#10140;</span></div>
       </div>
     </a>
   </div>
-  </section>
 
-  <section class="group" aria-labelledby="g-thep">
-    <h3 class="group-h" id="g-thep"><span class="g-ic">🏢</span>บริษัท เทพวัฒนา จำกัด<small>2 ระบบ</small><a class="g-link" href="thepwatana/">หน้าบริษัท ➜</a></h3>
-  <div class="cards">
-    <a class="card c-blue" href="https://watanathep8-dotcom.github.io/sds-management-dashboard/" data-name="SDS Management" aria-label="เปิดระบบ SDS Management จัดการเอกสารความปลอดภัยสารเคมี">
-      <div class="inner">
-        <div class="glow-blob"></div>
-        <div class="icon-box">
-          <div class="orbit"><i></i></div>
-          <div class="ring"></div>
-          <svg class="sds" viewBox="0 0 64 64" fill="none">
-            <rect class="ghs" x="38" y="6" width="16" height="16" rx="2" fill="#fff" stroke="#ef4444" stroke-width="2.5"/>
-            <path d="M46 10v6M46 18.5v.5" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
-            <path d="M18 8h16M22 8v14L10 46a6 6 0 0 0 5.3 9h21.4A6 6 0 0 0 42 46L30 22V8" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/>
-            <path class="liquid" d="M14.5 40h23L41 47a4 4 0 0 1-3.6 6H14.6A4 4 0 0 1 11 47z" fill="#93c5fd"/>
-            <circle class="bubble" cx="22" cy="46" r="2.2" fill="#fff"/>
-            <circle class="bubble d2" cx="29" cy="48" r="1.7" fill="#fff"/>
-            <circle class="bubble d3" cx="25" cy="44" r="1.4" fill="#fff"/>
-          </svg>
-        </div>
-        <h2><small>SDS Management</small>เอกสารความปลอดภัยสารเคมี</h2>
-        <p class="desc">ค้นหา SDS ภาษาไทย/อังกฤษ สัญลักษณ์ GHS มาตรการปฐมพยาบาล พร้อม QR Code และพิมพ์ทะเบียนสารเคมี</p>
-        <div class="chips"><span>ทะเบียนสารเคมี</span><span>GHS Pictogram</span><span>QR Code</span></div>
-        <div class="go"><span>เข้าสู่ SDS Management</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/sds-management-dashboard</div>
-      </div>
-    </a>
-    <a class="card c-green" href="https://watanathep8-dotcom.github.io/work-permit-thepwatana/" data-name="e-Work Permit · เทพวัฒนา" aria-label="เปิด e-Work Permit ของ บริษัท เทพวัฒนา จำกัด">
-      <div class="inner">
-        <div class="glow-blob"></div>
-        <div class="icon-box">
-          <div class="orbit"><i></i></div>
-          <div class="ring"></div>
-          <svg class="wp" viewBox="0 0 64 64" fill="none">
-            <rect x="12" y="20" width="34" height="38" rx="4" fill="rgba(255,255,255,.12)" stroke="#fff" stroke-width="2.4"/>
-            <rect x="21" y="16" width="16" height="8" rx="2" fill="#6ee7b7" stroke="#fff" stroke-width="2"/>
-            <path d="M18 34h14M18 41h10" stroke="#a7f3d0" stroke-width="2.4" stroke-linecap="round"/>
-            <path class="check" d="M19 49l5 5 10-11" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <g class="hat">
-              <path d="M36 24a12 12 0 0 1 24 0v2H36z" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
-              <rect x="33" y="25" width="30" height="5" rx="2.5" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
-              <path d="M48 12v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-            </g>
-          </svg>
-        </div>
-        <h2><small>e-Work Permit</small>ใบขออนุญาตปฏิบัติงาน</h2>
-        <p class="desc">ยื่นขอใบอนุญาตออนไลน์ (FM-MR-58) ลงนาม แนบไฟล์ ติดตามสถานะด้วย QR และ จป. อนุมัติได้ทันที</p>
-        <div class="chips"><span>ขอใบอนุญาต</span><span>ติดตามสถานะ</span><span>สำหรับ จป.</span></div>
-        <div class="go"><span>เข้าสู่ e-Work Permit</span><span class="arrow">➜</span></div>
-        <div class="url">watanathep8-dotcom.github.io/work-permit-thepwatana</div>
-      </div>
-    </a>
-  </div>
-  </section>
-  </div>
-
-  <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b></footer>
+  <footer>Operations Hub · <b>บริษัท แน็ป นิวตริซายส์ จำกัด</b> · <b>บริษัท เทพวัฒนา จำกัด</b></footer>
 </div>
 
 <div class="warp" id="warp" aria-hidden="true"><span id="warpText"></span></div>
@@ -419,7 +320,7 @@
   tick(); setInterval(tick, 1000);
 
   /* typewriter */
-  const words = ['บริหารพาเลท RM · PK · FG', 'เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'];
+  const words = ['บริษัท แน็ป นิวตริซายส์ จำกัด', 'บริษัท เทพวัฒนา จำกัด'];
   const typed = document.getElementById('typed');
   if (reduce) typed.textContent = words.join(' · ');
   else {

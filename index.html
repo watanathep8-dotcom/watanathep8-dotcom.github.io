@@ -108,6 +108,10 @@
   .group + .group .card { animation-delay: .7s; }
   .card.c-blue { --c: var(--blue); --c2: var(--blue-2); }
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
+  .card.c-teal { --c: #14b8a6; --c2: #5eead4; }
+  /* Balance Waste: recycle mark turns slowly, the core pulses */
+  .bw .recycle { transform-box: view-box; transform-origin: 32px 36px; animation: spin 9s linear infinite; }
+  .card:hover .bw .recycle { animation-duration: 2.4s; }
   /* one group per company */
   /* the two companies side by side, half the screen each; 2 compact cards per row inside a group */
   .groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px; align-items: start; }
@@ -258,14 +262,14 @@
   </header>
 
   <section class="hero">
-    <span class="badge"><i></i>2 บริษัท · 4 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
+    <span class="badge"><i></i>2 บริษัท · 5 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
     <h1><span class="shine">ศูนย์รวมระบบงาน</span><br>ในที่เดียว</h1>
     <p>เลือกระบบที่ต้องการ — <span class="typed" id="typed"></span></p>
   </section>
 
   <div class="groups">
   <section class="group" aria-labelledby="g-nap">
-    <h3 class="group-h" id="g-nap"><span class="g-ic">🏭</span>บริษัท แน็ป นิวตริซายส์ จำกัด<small>2 ระบบ</small><a class="g-link" href="nap/">หน้าบริษัท ➜</a></h3>
+    <h3 class="group-h" id="g-nap"><span class="g-ic">🏭</span>บริษัท แน็ป นิวตริซายส์ จำกัด<small>3 ระบบ</small><a class="g-link" href="nap/">หน้าบริษัท ➜</a></h3>
   <div class="cards">
     <a class="card" href="https://watanathep8-dotcom.github.io/pallet-management/" data-name="Pallet Hub" aria-label="เปิดระบบ Pallet Hub ระบบบริหารพาเลท">
       <div class="inner">
@@ -313,6 +317,29 @@
         <div class="chips"><span>ขอใบอนุญาต</span><span>ติดตามสถานะ</span><span>สำหรับ จป.</span></div>
         <div class="go"><span>เข้าสู่ e-Work Permit</span><span class="arrow">➜</span></div>
         <div class="url">watanathep8-dotcom.github.io/work-permit</div>
+      </div>
+    </a>
+    <a class="card c-teal" href="https://watanathep8-dotcom.github.io/balance-waste-nap/" data-name="Balance Waste" aria-label="เปิดระบบ Balance Waste บริหารจัดการของเสีย">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="bw" viewBox="0 0 64 64" fill="none">
+            <g class="recycle">
+              <path d="M32 10l7 12h-14z" fill="#5eead4" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M52 44l-7 12-7-12z" fill="#2dd4bf" stroke="#fff" stroke-width="2" stroke-linejoin="round" transform="rotate(0)"/>
+              <path d="M12 44l14 0-7 12z" fill="#99f6e4" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M36 22c6 3 10 10 10 17M18 40c-1-7 3-15 9-18M24 54c7 2 15 0 20-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <circle cx="32" cy="36" r="5" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+          </svg>
+        </div>
+        <h2><small>Balance Waste</small>บริหารจัดการของเสีย</h2>
+        <p class="desc">บันทึกของเสียที่จัดเก็บในโรงงาน (กก.) ถัง 200 ลิตร · IBC · Bigbag ส่งกำจัด และติดตามโควตาตามหนังสืออนุญาต สก.2</p>
+        <div class="chips"><span>จัดเก็บ / ส่งกำจัด</span><span>คงเหลือ & โควตา</span><span>สก.2</span></div>
+        <div class="go"><span>เข้าสู่ Balance Waste</span><span class="arrow">➜</span></div>
+        <div class="url">watanathep8-dotcom.github.io/balance-waste-nap</div>
       </div>
     </a>
   </div>
@@ -373,7 +400,7 @@
   </section>
   </div>
 
-  <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b></footer>
+  <footer>Operations Hub · <b>Pallet Hub</b> · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b></footer>
 </div>
 
 <div class="warp" id="warp" aria-hidden="true"><span id="warpText"></span></div>
@@ -392,7 +419,7 @@
   tick(); setInterval(tick, 1000);
 
   /* typewriter */
-  const words = ['บริหารพาเลท RM · PK · FG', 'เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน'];
+  const words = ['บริหารพาเลท RM · PK · FG', 'เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'];
   const typed = document.getElementById('typed');
   if (reduce) typed.textContent = words.join(' · ');
   else {

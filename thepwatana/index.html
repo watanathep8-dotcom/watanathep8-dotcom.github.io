@@ -109,6 +109,10 @@
   .group + .group .card { animation-delay: .7s; }
   .card.c-blue { --c: var(--blue); --c2: var(--blue-2); }
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
+  .card.c-teal { --c: #14b8a6; --c2: #5eead4; }
+  /* Balance Waste: recycle mark turns slowly, the core pulses */
+  .bw .recycle { transform-box: view-box; transform-origin: 32px 36px; animation: spin 9s linear infinite; }
+  .card:hover .bw .recycle { animation-duration: 2.4s; }
   /* single-company page: bigger cards, centred */
   .solo .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; margin: 0 auto; }
   .solo .group-h { max-width: 860px; margin-left: auto; margin-right: auto; }

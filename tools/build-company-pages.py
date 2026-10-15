@@ -9,7 +9,7 @@ src = io.open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
 
 COMPANIES = [
     dict(dir='nap', gid='g-nap', name='บริษัท แน็ป นิวตริซายส์ จำกัด', short='แน็ป นิวตริซายส์',
-         words=['บริหารพาเลท RM · PK · FG', 'ใบขออนุญาตปฏิบัติงาน'], systems='<b>Pallet Hub</b> · <b>e-Work Permit</b>'),
+         words=['บริหารพาเลท RM · PK · FG', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'], systems='<b>Pallet Hub</b> · <b>e-Work Permit</b> · <b>Balance Waste</b>'),
     dict(dir='thepwatana', gid='g-thep', name='บริษัท เทพวัฒนา จำกัด', short='เทพวัฒนา',
          words=['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน'], systems='<b>SDS Management</b> · <b>e-Work Permit</b>'),
 ]

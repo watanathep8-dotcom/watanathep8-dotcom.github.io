@@ -33,12 +33,13 @@ groups = re.search(r'  <div class="groups">\n(.*?)\n  </div>\n\n  <footer>', src
 assert groups, 'groups block not found'
 
 SOLO_CSS = '''  /* single-company page: bigger cards, centred */
-  .solo .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; margin: 0 auto; }
-  .solo .group-h { max-width: 860px; margin-left: auto; margin-right: auto; }
+  .solo .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1240px; margin: 0 auto; }
+  .solo .group-h { max-width: 1240px; margin-left: auto; margin-right: auto; }
   .h1-co { font-size: .55em; font-weight: 700; color: var(--ink); }
   .back { font-family: 'Kanit', sans-serif; font-size: 14px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, .04); color: var(--muted); transition: color .2s, border-color .2s; margin-left: auto; }
   .back:hover { color: var(--ink); border-color: rgba(255, 255, 255, .25); }
-  @media (max-width: 560px) { .solo .cards { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) { .solo .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; } }
+  @media (max-width: 620px) { .solo .cards { grid-template-columns: 1fr; max-width: 520px; } }
 '''
 
 # ---------------------------------------------------------------- one page per company

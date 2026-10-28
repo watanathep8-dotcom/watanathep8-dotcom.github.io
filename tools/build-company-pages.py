@@ -11,8 +11,8 @@ STAMP = '<!-- GENERATED from tools/hub-template.html by tools/build-company-page
 
 COMPANIES = [
     dict(dir='nap', gid='g-nap', icon='🏭', cls='', name='บริษัท แน็ป นิวตริซายส์ จำกัด', short='แน็ป นิวตริซายส์', sub='Nap Nutriscience',
-         words=['บริหารพาเลท RM · PK · FG', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'],
-         chips=['Pallet Hub', 'e-Work Permit', 'Balance Waste']),
+         words=['บริหารพาเลท RM · PK · FG', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'เอกสาร SDS สารเคมี'],
+         chips=['Pallet Hub', 'e-Work Permit', 'Balance Waste', 'SDS Management']),
     dict(dir='thepwatana', gid='g-thep', icon='🏢', cls=' c-blue', name='บริษัท เทพวัฒนา จำกัด', short='เทพวัฒนา', sub='Thepwatana',
          words=['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'],
          chips=['SDS Management', 'e-Work Permit', 'Balance Waste']),

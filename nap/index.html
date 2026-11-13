@@ -110,6 +110,13 @@
   .card.c-blue { --c: var(--blue); --c2: var(--blue-2); }
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
   .card.c-teal { --c: #14b8a6; --c2: #5eead4; }
+  .card.c-indigo { --c: #6366f1; --c2: #a5b4fc; }
+  /* แบบฟอร์มออนไลน์: the check mark draws itself, the lines fill in */
+  .of .tick { stroke-dasharray: 30; stroke-dashoffset: 30; animation: tick 3.2s ease-in-out infinite; }
+  .of .ln { transform-box: fill-box; transform-origin: left center; animation: fillin 3.2s ease-in-out infinite; }
+  .of .ln.l2 { animation-delay: .25s; } .of .ln.l3 { animation-delay: .5s; }
+  @keyframes tick { 0%, 35% { stroke-dashoffset: 30; } 60%, 100% { stroke-dashoffset: 0; } }
+  @keyframes fillin { 0% { transform: scaleX(0); } 30%, 100% { transform: scaleX(1); } }
   /* Balance Waste: recycle mark turns slowly, the core pulses */
   .bw .recycle { transform-box: view-box; transform-origin: 32px 36px; animation: spin 9s linear infinite; }
   .card:hover .bw .recycle { animation-duration: 2.4s; }

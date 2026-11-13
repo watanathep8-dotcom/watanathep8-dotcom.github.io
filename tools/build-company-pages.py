@@ -14,8 +14,8 @@ COMPANIES = [
          words=['บริหารพาเลท RM · PK · FG', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'เอกสาร SDS สารเคมี'],
          chips=['Pallet Hub', 'e-Work Permit', 'Balance Waste', 'SDS Management']),
     dict(dir='thepwatana', gid='g-thep', icon='🏢', cls=' c-blue', name='บริษัท เทพวัฒนา จำกัด', short='เทพวัฒนา', sub='Thepwatana',
-         words=['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'],
-         chips=['SDS Management', 'e-Work Permit', 'Balance Waste']),
+         words=['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'แบบฟอร์มออนไลน์'],
+         chips=['SDS Management', 'e-Work Permit', 'Balance Waste', 'แบบฟอร์มออนไลน์']),
 ]
 
 

@@ -110,6 +110,13 @@
   .card.c-blue { --c: var(--blue); --c2: var(--blue-2); }
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
   .card.c-teal { --c: #14b8a6; --c2: #5eead4; }
+  .card.c-indigo { --c: #6366f1; --c2: #a5b4fc; }
+  /* แบบฟอร์มออนไลน์: the check mark draws itself, the lines fill in */
+  .of .tick { stroke-dasharray: 30; stroke-dashoffset: 30; animation: tick 3.2s ease-in-out infinite; }
+  .of .ln { transform-box: fill-box; transform-origin: left center; animation: fillin 3.2s ease-in-out infinite; }
+  .of .ln.l2 { animation-delay: .25s; } .of .ln.l3 { animation-delay: .5s; }
+  @keyframes tick { 0%, 35% { stroke-dashoffset: 30; } 60%, 100% { stroke-dashoffset: 0; } }
+  @keyframes fillin { 0% { transform: scaleX(0); } 30%, 100% { transform: scaleX(1); } }
   /* Balance Waste: recycle mark turns slowly, the core pulses */
   .bw .recycle { transform-box: view-box; transform-origin: 32px 36px; animation: spin 9s linear infinite; }
   .card:hover .bw .recycle { animation-duration: 2.4s; }
@@ -272,14 +279,14 @@
   </header>
 
   <section class="hero">
-    <span class="badge"><i></i>3 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
+    <span class="badge"><i></i>4 ระบบพร้อมใช้งาน · ออนไลน์ 24 ชม.</span>
     <h1><span class="shine">ศูนย์รวมระบบงาน</span><br><span class="h1-co">บริษัท เทพวัฒนา จำกัด</span></h1>
     <p>เลือกระบบที่ต้องการ — <span class="typed" id="typed"></span></p>
   </section>
 
   <div class="solo">
   <section class="group" aria-labelledby="g-thep">
-    <h3 class="group-h" id="g-thep"><span class="g-ic">🏢</span>บริษัท เทพวัฒนา จำกัด<small>3 ระบบ</small></h3>
+    <h3 class="group-h" id="g-thep"><span class="g-ic">🏢</span>บริษัท เทพวัฒนา จำกัด<small>4 ระบบ</small></h3>
   <div class="cards">
     <a class="card c-blue" href="https://watanathep8-dotcom.github.io/sds-management-dashboard/" data-name="SDS Management" aria-label="เปิดระบบ SDS Management จัดการเอกสารความปลอดภัยสารเคมี">
       <div class="inner">
@@ -352,11 +359,34 @@
         <div class="url">watanathep8-dotcom.github.io/balance-waste-thepwatana</div>
       </div>
     </a>
+    <a class="card c-indigo" href="https://watanathep8-dotcom.github.io/online-forms-thepwatana/" data-name="แบบฟอร์มออนไลน์" aria-label="เปิดระบบแบบฟอร์มออนไลน์ ใบตรวจรับบรรจุภัณฑ์">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="of" viewBox="0 0 64 64" fill="none">
+            <rect x="13" y="8" width="34" height="46" rx="5" fill="#eef2ff" stroke="#fff" stroke-width="2.4"/>
+            <rect x="24" y="4" width="12" height="8" rx="2.5" fill="#a5b4fc" stroke="#fff" stroke-width="2"/>
+            <rect class="ln" x="19" y="20" width="22" height="3.2" rx="1.6" fill="#6366f1"/>
+            <rect class="ln l2" x="19" y="28" width="22" height="3.2" rx="1.6" fill="#818cf8"/>
+            <rect class="ln l3" x="19" y="36" width="14" height="3.2" rx="1.6" fill="#a5b4fc"/>
+            <circle cx="46" cy="47" r="11" fill="#22c55e" stroke="#fff" stroke-width="2.4"/>
+            <path class="tick" d="M40.5 47.5l4 4 7.5-8" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2><small>Online Forms</small>แบบฟอร์มออนไลน์</h2>
+        <p class="desc">ใบตรวจรับบรรจุภัณฑ์ AQL ระดับ II · ถ่ายรูป ลงลายเซ็น หัวหน้า QC อนุมัติ ค้นประวัติ และสรุป Supplier ที่ไม่ผ่าน</p>
+        <div class="chips"><span>ตรวจรับบรรจุภัณฑ์</span><span>AQL 6.5</span><span>สรุป Supplier</span></div>
+        <div class="go"><span>เข้าสู่แบบฟอร์มออนไลน์</span><span class="arrow">&#10140;</span></div>
+        <div class="url">watanathep8-dotcom.github.io/online-forms-thepwatana</div>
+      </div>
+    </a>
   </div>
   </section>
   </div>
 
-  <footer>Operations Hub · บริษัท เทพวัฒนา จำกัด · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b></footer>
+  <footer>Operations Hub · บริษัท เทพวัฒนา จำกัด · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b> · <b>แบบฟอร์มออนไลน์</b></footer>
 </div>
 
 <div class="warp" id="warp" aria-hidden="true"><span id="warpText"></span></div>
@@ -375,7 +405,7 @@
   tick(); setInterval(tick, 1000);
 
   /* typewriter */
-  const words = ['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย'];
+  const words = ['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'แบบฟอร์มออนไลน์'];
   const typed = document.getElementById('typed');
   if (reduce) typed.textContent = words.join(' · ');
   else {

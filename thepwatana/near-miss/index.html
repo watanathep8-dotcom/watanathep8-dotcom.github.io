@@ -1426,6 +1426,38 @@
     .toast { border-color: rgba(89,205,183,.26); box-shadow: 0 14px 32px rgba(0,0,0,.3); }
     .toast-icon { color: #06171a; background: var(--signal-mint); }
 
+  
+  /* Primary safety action: warm orange only on the hero CTA */
+  :root {
+    --primary-orange-action: 1;
+    --primary-orange: #e0914f;
+    --primary-orange-dark: #b7662e;
+    --primary-orange-light: #f0b57b;
+  }
+
+  .welcome-actions .btn-primary {
+    color: #21140c;
+    background: linear-gradient(135deg, var(--primary-orange-light), var(--primary-orange));
+    border-color: rgba(255, 231, 205, .62);
+    box-shadow: 0 10px 22px rgba(224, 145, 79, .24);
+  }
+
+  .welcome-actions .btn-primary:hover {
+    background: linear-gradient(135deg, #f4bf86, #d17b3e);
+    border-color: rgba(255, 238, 216, .76);
+    box-shadow: 0 12px 24px rgba(224, 145, 79, .28);
+    transform: translateY(-1px);
+  }
+
+  .welcome-actions .btn-primary:focus-visible {
+    outline-color: rgba(224, 145, 79, .55);
+    box-shadow: 0 0 0 4px rgba(224, 145, 79, .16), 0 10px 22px rgba(224, 145, 79, .22);
+  }
+
+  .welcome-actions .btn-primary svg {
+    color: #21140c;
+  }
+
   </style>
 </head>
 <body>

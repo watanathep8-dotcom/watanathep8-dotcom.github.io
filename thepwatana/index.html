@@ -111,6 +111,7 @@
   .card.c-green { --c: var(--green); --c2: var(--green-2); }
   .card.c-teal { --c: #14b8a6; --c2: #5eead4; }
   .card.c-indigo { --c: #6366f1; --c2: #a5b4fc; }
+  .card.c-orange { --c: #f97316; --c2: #fdba74; }
   /* แบบฟอร์มออนไลน์: the check mark draws itself, the lines fill in */
   .of .tick { stroke-dasharray: 30; stroke-dashoffset: 30; animation: tick 3.2s ease-in-out infinite; }
   .of .ln { transform-box: fill-box; transform-origin: left center; animation: fillin 3.2s ease-in-out infinite; }
@@ -286,7 +287,7 @@
 
   <div class="solo">
   <section class="group" aria-labelledby="g-thep">
-    <h3 class="group-h" id="g-thep"><span class="g-ic">🏢</span>บริษัท เทพวัฒนา จำกัด<small>4 ระบบ</small></h3>
+    <h3 class="group-h" id="g-thep"><span class="g-ic">🏢</span>บริษัท เทพวัฒนา จำกัด<small>5 ระบบ</small></h3>
   <div class="cards">
     <a class="card c-blue" href="https://watanathep8-dotcom.github.io/sds-management-dashboard/" data-name="SDS Management" aria-label="เปิดระบบ SDS Management จัดการเอกสารความปลอดภัยสารเคมี">
       <div class="inner">
@@ -382,11 +383,31 @@
         <div class="url">watanathep8-dotcom.github.io/online-forms-thepwatana</div>
       </div>
     </a>
+
+    <a class="card c-orange" href="https://watanathep8-dotcom.github.io/thepwatana/near-miss/" data-name="Near Miss" aria-label="เปิดระบบแจ้ง Near Miss เพื่อป้องกันอุบัติเหตุ">
+      <div class="inner">
+        <div class="glow-blob"></div>
+        <div class="icon-box">
+          <div class="orbit"><i></i></div>
+          <div class="ring"></div>
+          <svg class="nm" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M32 7 57 53H7L32 7Z" fill="rgba(251,146,60,.22)" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M32 22v15M32 45v.5" stroke="#fed7aa" stroke-width="4" stroke-linecap="round"/>
+            <path d="M16 54h32" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h2><small>Near Miss</small>แจ้งเหตุเกือบเกิดอุบัติเหตุ</h2>
+        <p class="desc">แจ้งสิ่งที่พบเห็นก่อนเกิดอุบัติเหตุ พร้อมแนบภาพและแนวทางแก้ไข ติดตามการสรุปผลโดยเจ้าหน้าที่ความปลอดภัย</p>
+        <div class="chips"><span>แจ้งเหตุ</span><span>แนบภาพ</span><span>ติดตามผล</span></div>
+        <div class="go"><span>เข้าสู่ Near Miss</span><span class="arrow">➜</span></div>
+        <div class="url">watanathep8-dotcom.github.io/thepwatana/near-miss</div>
+      </div>
+    </a>
   </div>
   </section>
   </div>
 
-  <footer>Operations Hub · บริษัท เทพวัฒนา จำกัด · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b> · <b>แบบฟอร์มออนไลน์</b></footer>
+  <footer>Operations Hub · บริษัท เทพวัฒนา จำกัด · <b>SDS Management</b> · <b>e-Work Permit</b> · <b>Balance Waste</b> · <b>แบบฟอร์มออนไลน์</b> · <b>Near Miss</b></footer>
 </div>
 
 <div class="warp" id="warp" aria-hidden="true"><span id="warpText"></span></div>
@@ -405,7 +426,7 @@
   tick(); setInterval(tick, 1000);
 
   /* typewriter */
-  const words = ['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'แบบฟอร์มออนไลน์'];
+  const words = ['เอกสาร SDS สารเคมี', 'ใบขออนุญาตปฏิบัติงาน', 'บริหารจัดการของเสีย', 'แบบฟอร์มออนไลน์', 'แจ้ง Near Miss'];
   const typed = document.getElementById('typed');
   if (reduce) typed.textContent = words.join(' · ');
   else {

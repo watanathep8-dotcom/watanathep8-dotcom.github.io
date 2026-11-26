@@ -2350,7 +2350,7 @@
       openModal('detailModal');
     }
 
-    $('[data-camera-input]').forEach((button) => {
+    document.querySelectorAll('[data-camera-input]').forEach((button) => {
       button.addEventListener('click', () => {
         const input = $('#' + button.dataset.cameraInput);
         if (input) input.click();

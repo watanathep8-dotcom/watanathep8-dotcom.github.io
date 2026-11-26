@@ -2040,6 +2040,108 @@
     border-color: #b9cedd;
   }
 
+  
+  /* Reset control: intentionally secondary to the report action */
+  .reset-data-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 0 12px;
+    border: 1px solid #efc9a5;
+    border-radius: 11px;
+    color: #a85827;
+    background: #fff8f0;
+    box-shadow: 0 6px 16px rgba(182, 102, 46, .08);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+
+  .reset-data-button:hover {
+    color: #8d431c;
+    background: #fff0df;
+    border-color: #df9e6c;
+    box-shadow: 0 9px 20px rgba(182, 102, 46, .14);
+    transform: translateY(-1px);
+  }
+
+  .reset-data-button:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(223, 139, 69, .18), 0 8px 18px rgba(182, 102, 46, .12);
+  }
+
+  .reset-modal {
+    max-width: 520px;
+  }
+
+  .reset-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 2px 0 18px;
+    padding: 14px;
+    color: #7c4a25;
+    background: #fff7ed;
+    border: 1px solid #f1d2b4;
+    border-radius: 14px;
+  }
+
+  .reset-warning strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #8f4a20;
+    font-size: 13px;
+  }
+
+  .reset-warning p {
+    margin: 0;
+    color: #976b48;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .reset-icon {
+    display: grid;
+    flex: 0 0 34px;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    color: #b76529;
+    background: #ffe8d0;
+    border-radius: 10px;
+  }
+
+  .reset-form {
+    margin-top: 4px;
+  }
+
+  .reset-confirm {
+    color: #fff;
+    background: linear-gradient(135deg, #c97536, #a85827);
+    border-color: #b76529;
+    box-shadow: 0 10px 20px rgba(168, 88, 39, .20);
+  }
+
+  .reset-confirm:hover {
+    background: linear-gradient(135deg, #d98544, #93471f);
+    box-shadow: 0 12px 24px rgba(168, 88, 39, .26);
+  }
+
+  @media (max-width: 640px) {
+    .reset-data-button {
+      min-width: 38px;
+      justify-content: center;
+      padding: 0 10px;
+    }
+
+    .reset-data-button span {
+      display: none;
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -2075,6 +2177,7 @@
         <div class="top-actions">
           <button class="icon-button" aria-label="ค้นหา" id="focusSearch"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="5.8" stroke="currentColor" stroke-width="1.7"/><path d="m15.2 15.2 4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
           <button class="icon-button" aria-label="การแจ้งเตือน"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M18 9.8a6 6 0 0 0-12 0c0 7-2.5 7-2.5 8.5h17C20.5 16.8 18 16.8 18 9.8ZM10 21h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><i class="notification-dot"></i></button>
+          <button class="reset-data-button" id="resetDataButton" type="button" aria-label="รีเซ็ตข้อมูล Near Miss" title="ล้างข้อมูล Near Miss ในเบราว์เซอร์นี้"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 8.8M4.5 4.5v4.3h4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>รีเซ็ตข้อมูล</span></button>
           <div class="top-user"><div class="avatar">NT</div><div class="top-user-text"><strong>นที สุขใจ</strong><span>Safety Officer</span></div></div>
         </div>
       </header>
@@ -2124,9 +2227,12 @@
 
   <div class="modal-backdrop" id="detailModal" aria-hidden="true"><div class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal-head"><div><h2 id="detailTitle">รายละเอียด Near Miss</h2><p id="detailSubtitle">ตรวจสอบและสรุปผลการแก้ไขรายการ</p></div><button class="close-button" data-close-modal="detailModal" aria-label="ปิด"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><div class="detail-grid"><section class="detail-info"><div class="case-heading"><div><h3 id="detailCaseId">NM-2408</h3><p id="detailCaseDate">24 พ.ย. 2568 · 09:42 น.</p></div><span class="status status-review" id="detailStatus">รอตรวจสอบ</span></div><div class="detail-meta"><div class="meta-box"><span>สถานที่</span><strong id="detailLocation">—</strong></div><div class="meta-box"><span>ผู้แจ้ง</span><strong id="detailReporter">—</strong></div><div class="meta-box"><span>ระดับความเสี่ยง</span><strong id="detailRisk">—</strong></div><div class="meta-box"><span>ความคืบหน้า</span><strong id="detailProgress">—</strong></div></div><div class="detail-block"><h4>รายละเอียดเหตุการณ์</h4><p id="detailDescription">—</p></div><div class="detail-block"><h4>แนวทางการแก้ไข</h4><p id="detailAction">—</p></div><div class="detail-block"><h4>ภาพประกอบจากผู้แจ้ง</h4><div class="file-previews" id="reportFilesInDetail"></div></div></section><section class="detail-review"><div class="review-head"><h3>สรุปผลโดยเจ้าหน้าที่ความปลอดภัย</h3><p>บันทึกผลการตรวจสอบหน้างานและหลักฐานหลังแก้ไข</p></div><div class="review-note">เมื่อตรวจสอบแล้ว ให้เลือกสถานะ “ปิดแล้ว” เพื่อยืนยันว่ามาตรการแก้ไขได้ผล</div><div class="field"><label for="reviewStatus">สถานะหลังทบทวน <em>*</em></label><select id="reviewStatus"><option>รอตรวจสอบ</option><option>กำลังแก้ไข</option><option>ปิดแล้ว</option></select></div><div class="field"><label for="officerSummary">สรุปผลการตรวจสอบ <em>*</em></label><textarea id="officerSummary" placeholder="สรุปสิ่งที่ตรวจสอบ ผลการแก้ไข และข้อเสนอแนะ..."></textarea></div><div class="section-label"><span>ภาพหลังการแก้ไข</span><small>สูงสุด 3 ภาพ</small></div><div class="dropzone"><div class="dropzone-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 16.5V19h16v-2.5M12 4v11M8.5 8.5 12 5l3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dropzone-copy"><strong>แนบหลักฐานหลังแก้ไข</strong><span>ช่วยยืนยันว่ามาตรการได้ผลจริง</span></div><label class="file-button">เลือกภาพ<input id="officerImages" type="file" accept="image/*" multiple /></label></div><div class="file-previews" id="officerPreviews"></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-close-modal="detailModal">ปิดหน้าต่าง</button><button type="button" class="btn btn-primary" id="saveReview">บันทึกสรุปผล</button></div></section></div></div></div>
 
+  <div class="modal-backdrop" id="resetModal" aria-hidden="true"><div class="modal reset-modal" role="dialog" aria-modal="true" aria-labelledby="resetTitle"><div class="modal-head"><div><h2 id="resetTitle">รีเซ็ตข้อมูล Near Miss</h2><p>ล้างข้อมูลที่บันทึกไว้ในเบราว์เซอร์นี้และคืนค่ารายการตัวอย่าง</p></div><button class="close-button" data-close-modal="resetModal" aria-label="ปิด"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div><div class="reset-warning"><div class="reset-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 21 19H3L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 9v4M12 16.5v.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><strong>การดำเนินการนี้ล้างข้อมูลในเครื่อง</strong><p>ข้อมูลที่ส่งไปแล้วบนระบบภายนอกจะไม่ถูกลบ ปุ่มนี้มีผลกับข้อมูล Near Miss ที่เก็บในเบราว์เซอร์นี้เท่านั้น</p></div></div><form class="reset-form" id="resetForm"><div class="field"><label for="resetCode">รหัสรีเซ็ต <em>*</em></label><input id="resetCode" type="password" autocomplete="off" placeholder="กรอกรหัสเพื่อดำเนินการ" required /></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-close-modal="resetModal">ยกเลิก</button><button type="submit" class="btn reset-confirm">รีเซ็ตข้อมูล</button></div></form></div></div>
+
   <div class="toast" id="toast"><div class="toast-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="m5 12.5 4.2 4.2L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span id="toastText">บันทึกเรียบร้อย</span></div>
 
   <script>
+    const RESET_CODE = 'milkduong';
     const seedCases = [
       { id: 'NM-2408', date: '2025-11-24', time: '09:42', location: 'คลังวัตถุดิบ · ทางเดิน B', reporter: 'ณัฐพงศ์ ทองดี', detail: 'พบพาเลทวางล้ำแนวทางเดิน ทำให้เหลือพื้นที่สัญจรน้อยและมีโอกาสสะดุดขณะขนย้ายวัตถุดิบ', action: 'ย้ายพาเลทเข้าพื้นที่จัดเก็บและตีเส้นแบ่งเขตทางเดินใหม่', status: 'รอตรวจสอบ', risk: 'สูง', progress: 82, officerSummary: '', images: ['พาเลททางเดิน.jpg'], officerImages: [], createdAt: '2025-11-24T09:42:00' },
       { id: 'NM-2407', date: '2025-11-23', time: '14:18', location: 'ไลน์บรรจุ · จุดตรวจ 02', reporter: 'ปรียานุช แสงดี', detail: 'พบสายลมของเครื่องมือมีรอยแตกเล็กน้อยและมีลมรั่วออกมาขณะใช้งาน', action: 'เปลี่ยนสายลมใหม่ทันที และเพิ่มจุดตรวจสภาพสายเข้ารายการตรวจประจำวัน', status: 'กำลังแก้ไข', risk: 'กลาง', progress: 58, officerSummary: '', images: [], officerImages: [], createdAt: '2025-11-23T14:18:00' },
@@ -2269,6 +2375,35 @@
       if (window.innerWidth <= 840) $('#sidebar').classList.remove('open');
     }));
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape') $$('.modal-backdrop.open').forEach((modal) => closeModal(modal.id)); });
+    $('#resetDataButton').addEventListener('click', () => {
+      $('#resetCode').value = '';
+      openModal('resetModal');
+      setTimeout(() => $('#resetCode').focus(), 80);
+    });
+
+    $('#resetForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const code = $('#resetCode').value;
+      if (code !== RESET_CODE) {
+        showToast('รหัสรีเซ็ตไม่ถูกต้อง');
+        $('#resetCode').select();
+        return;
+      }
+      if (!window.confirm('ยืนยันการรีเซ็ตข้อมูล Near Miss ในเบราว์เซอร์นี้หรือไม่?')) return;
+      localStorage.removeItem('safetyPulseCases');
+      cases = JSON.parse(JSON.stringify(seedCases));
+      reportFiles = [];
+      officerFiles = [];
+      activeCaseId = null;
+      $('#searchCases').value = '';
+      $('#statusFilter').value = 'all';
+      renderStats();
+      renderCases();
+      resetReportForm();
+      closeModal('resetModal');
+      showToast('รีเซ็ตข้อมูลเรียบร้อยแล้ว');
+    });
+
     renderStats(); renderCases(); resetReportForm();
   </script>
 </body>
